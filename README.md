@@ -94,6 +94,7 @@ Employees
      ▼
 Locations
 
+
 One department can have multiple employees.
 One location can have multiple employees.
 Employees are linked to departments using department_id.
