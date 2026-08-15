@@ -1,342 +1,417 @@
-# 🗄️ Employee Database Management System using SQL
+# 🗄️ Employee Database Management & SQL Analysis
 
-## 📌 Project Title
+## 📌 Project Overview
 
-Employee Database Management System using MySQL
+This project demonstrates the design, creation, population, and analysis of a relational **Employee Database using MySQL**.
 
----
+The project covers SQL concepts from **Database Definition Language (DDL)** and database design to **Data Manipulation Language (DML), data filtering, sorting, aggregation, grouping, and joins**.
 
-# 📖 Problem Statement
-
-Organizations require a structured database to efficiently manage employee information, departments, and office locations. Manually maintaining employee records can lead to redundancy, inconsistency, and data integrity issues.
-
-The objective of this project is to design and manage a relational Employee Database using SQL by implementing database creation, table management, constraints, schema modifications, and data integrity rules. This project demonstrates fundamental Database Definition Language (DDL) concepts and relational database design using MySQL.
+It was developed as a practical SQL learning project to build a strong foundation in database management and data analysis.
 
 ---
 
-# 🗃️ Database Details
+## 🎯 Objectives
+
+- Design and create a relational employee database.
+- Create and manage tables using SQL.
+- Apply database constraints and relationships.
+- Populate tables with employee, department, and location data.
+- Retrieve and filter employee records.
+- Sort and limit query results.
+- Perform aggregate calculations.
+- Analyze grouped data using `GROUP BY` and `HAVING`.
+- Combine information from multiple tables using SQL joins.
+- Practice SQL concepts relevant to data analytics.
+
+---
+
+## 🗃️ Database Details
 
 ### Database Name
 
 **Employee**
 
-### Tables Created
+### Tables
 
-### 1. Departments
+The database consists of three main tables:
+
+- **Departments**
+- **Locations**
+- **Employees**
+
+---
+
+## 🏢 Departments Table
 
 | Column | Data Type | Constraint |
-|---------|-----------|------------|
+|---|---|---|
 | department_id | INT | Primary Key |
 | department_name | VARCHAR(50) | NOT NULL, UNIQUE |
 
 ---
 
-### 2. Locations
+## 📍 Locations Table
 
 | Column | Data Type | Constraint |
-|---------|-----------|------------|
+|---|---|---|
 | location_id | INT | AUTO_INCREMENT, Primary Key |
 | location_name | VARCHAR(50) | NOT NULL, UNIQUE |
 
 ---
 
-### 3. Employees
+## 👥 Employees Table
 
 | Column | Data Type | Constraint |
-|---------|-----------|------------|
+|---|---|---|
 | employee_id | INT | Primary Key |
 | employee_name | VARCHAR(100) | NOT NULL |
-| Gender | CHAR(1) | CHECK ('M','F') |
-| Age | INT | CHECK (Age >=18) |
+| Gender | CHAR(1) | CHECK (M/F) |
+| Age | INT | CHECK (Age >= 18) |
 | Hire_date | DATE | DEFAULT CURRENT_DATE |
-| Designation | VARCHAR(100) | |
-| Salary | DECIMAL(10,2) | |
+| Designation | VARCHAR(100) | — |
+| Salary | DECIMAL(10,2) | — |
 | department_id | INT | Foreign Key |
 | location_id | INT | Foreign Key |
 
 ---
 
-## Entity Relationship
+## 🔗 Entity Relationships
+
+The database follows a relational structure where:
+
+- One department can have multiple employees.
+- One location can have multiple employees.
+- Each employee is associated with a department.
+- Each employee is associated with a location.
+- Relationships are established using foreign keys.
+
+```text
+Departments
+     │
+     │ department_id
+     ▼
+Employees
+     │
+     │ location_id
+     ▼
+Locations
 
-- One Department can have multiple Employees.
-- One Location can have multiple Employees.
-- Employees are linked to Departments and Locations using Foreign Keys.
+📚 SQL Concepts Covered
 
----
+🏗️ DDL & Database Management
+CREATE DATABASE
+USE
+CREATE TABLE
+DESC
+ALTER TABLE
+RENAME TABLE
+TRUNCATE TABLE
+DROP TABLE
+DROP DATABASE
 
-# 🎯 Project Objectives
+🔐 Constraints
+PRIMARY KEY
+FOREIGN KEY
+AUTO_INCREMENT
+NOT NULL
+UNIQUE
+CHECK
+DEFAULT
 
-- Create a relational database using MySQL.
-- Design normalized tables for employee management.
-- Apply database constraints to ensure data integrity.
-- Modify database schema using ALTER commands.
-- Implement relationships using Primary and Foreign Keys.
-- Practice SQL Database Definition Language (DDL) commands.
+📝 DML & Data Manipulation
+INSERT
+UPDATE
 
----
+🔎 Data Retrieval & Filtering
+SELECT
+DISTINCT
+AS
+WHERE
+AND
+OR
+IS NULL
+LIKE
 
-# 🛠️ SQL Concepts Used
+📊 Sorting & Limiting
+ORDER BY
+LIMIT
 
-## Database Commands
-- CREATE DATABASE
-- USE DATABASE
-- DROP DATABASE
+📈 Aggregate Functions
+SUM()
+MIN()
+MAX()
+AVG()
+COUNT()
 
-## Table Commands
-- CREATE TABLE
-- DESC
-- RENAME TABLE
-- TRUNCATE TABLE
-- DROP TABLE
+🗂️ Grouping
+GROUP BY
+HAVING
 
-## ALTER TABLE Operations
-- ADD COLUMN
-- MODIFY COLUMN
-- DROP COLUMN
-- CHANGE COLUMN
+🔗 Joins
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
 
-## Constraints
-- PRIMARY KEY
-- FOREIGN KEY
-- AUTO_INCREMENT
-- NOT NULL
-- UNIQUE
-- CHECK
-- DEFAULT
+📊 SQL Analysis Performed
+1. Distinct Salaries
 
-## Data Types
-- INT
-- VARCHAR
-- CHAR
-- DATE
-- DECIMAL
+Retrieved unique salary values from the Employees table using DISTINCT.
 
----
+Purpose: Identify different salary levels within the organization.
 
-# 📝 Query Explanations
+2. Column Aliases
 
-## 1. Database Creation
+Used AS to provide meaningful names to query output columns.
 
-Created the **Employee** database to store all employee-related information.
+Employee_Age
+Employee_Salary
 
-```sql
-CREATE DATABASE Employee;
-```
+Purpose: Improve readability of query results.
 
-Purpose:
-- Initializes a new relational database.
+3. Employee Filtering
 
----
+Retrieved employees who:
 
-## 2. Table Creation
+Earn more than ₹50,000
+Were hired before 2016-01-01
 
-Created three relational tables:
+Purpose: Filter employee records using multiple conditions.
 
-- Departments
-- Locations
-- Employees
+4. Missing Data Handling
 
-Purpose:
-- Store employee, department, and location information in separate normalized tables.
+Identified employees with missing designations and updated the missing value.
 
----
+Employee: Kiara Malhotra
+Employee ID: 5004
+Updated Designation: Data Scientist
 
-## 3. DESCRIBE Command
+Purpose: Demonstrate basic data-quality handling using SQL.
 
-```sql
-DESC Employees;
-```
+5. Employee Sorting
 
-Purpose:
-- Displays table structure, columns, data types, and constraints.
+Sorted employees by:
 
----
+Department ID — Ascending
+Salary — Descending
 
-## 4. ALTER TABLE Operations
+Purpose: Organize employee records based on multiple sorting conditions.
 
-Performed multiple schema modifications including:
+6. 2018 Hiring Analysis
 
-### Add Column
+Retrieved the first five employees hired during 2018.
 
-Added Email column.
+Purpose: Demonstrate filtering by year, sorting by hire date, and limiting results.
 
-```sql
-ALTER TABLE Employees
-ADD COLUMN Email VARCHAR(100);
-```
+7. Finance Department Salary Analysis
 
-### Modify Column
+Calculated the total salary of employees in the Finance department.
 
-Changed Designation column size.
+Result: ₹170,000
 
-```sql
-ALTER TABLE Employees
-MODIFY COLUMN Designation VARCHAR(100);
-```
+Purpose: Demonstrate the use of SUM() with filtering and joins.
 
-### Drop Column
+8. Minimum Employee Age
 
-Removed Age column.
+Calculated the minimum age among all employees.
 
-```sql
-ALTER TABLE Employees
-DROP COLUMN Age;
-```
+Result: 25 years
 
-### Rename Column
+Purpose: Demonstrate the MIN() aggregate function.
 
-Changed Hire_date to Date_of_Joining.
+9. Maximum Salary by Location
 
-```sql
-ALTER TABLE Employees
-CHANGE COLUMN Hire_date Date_of_Joining DATE;
-```
+Calculated the maximum salary for each location.
 
-Purpose:
-- Demonstrates schema evolution without recreating the table.
+Purpose: Compare the highest salary levels across different office locations.
 
----
+10. Average Salary for Analyst Roles
 
-## 5. Rename Tables
+Calculated the average salary for designations containing the word "Analyst".
 
-Renamed tables to improve naming consistency.
+Purpose: Analyze salary levels across different Analyst-related roles.
 
-```sql
-RENAME TABLE Departments TO Departments_Info;
-RENAME TABLE Location TO Locations;
-```
+11. Departments with Fewer Than 3 Employees
 
-Purpose:
-- Demonstrates table maintenance.
+Identified departments with fewer than three employees.
 
----
+Purpose: Analyze department size using GROUP BY, COUNT(), and HAVING.
 
-## 6. TRUNCATE TABLE
+12. Female Employee Age Analysis
 
-```sql
-TRUNCATE TABLE Employees;
-```
+Identified locations where female employees have an average age below 30.
 
-Purpose:
-- Removes all records while preserving table structure.
+Purpose: Analyze workforce demographics by location and gender.
 
----
+13. INNER JOIN
 
-## 7. DROP TABLE
+Combined employee information with department information.
 
-```sql
-DROP TABLE Employees;
-```
+Output includes:
 
-Purpose:
-- Permanently deletes the table from the database.
+Employee Name
+Designation
+Department Name
 
----
+Purpose: Retrieve matching records from related tables.
 
-## 8. DROP DATABASE
+14. LEFT JOIN
 
-```sql
-DROP DATABASE Employee;
-```
+Displayed all departments along with their total employee count, including departments with no employees.
 
-Purpose:
-- Deletes the complete database.
+Purpose: Demonstrate how LEFT JOIN preserves all records from the left table.
 
----
+15. RIGHT JOIN
 
-## 9. Implementing Constraints
+Displayed all locations along with employees assigned to each location.
 
-Created tables with multiple integrity constraints.
+If a location has no employees, the employee name appears as NULL.
 
-Implemented:
+Purpose: Demonstrate how RIGHT JOIN preserves all records from the right table.
 
-- Primary Key
-- Foreign Key
-- NOT NULL
-- UNIQUE
-- CHECK
-- DEFAULT
-- AUTO_INCREMENT
+🔑 Key Findings
+The Finance department has a total salary of ₹170,000.
+The minimum employee age is 25 years.
+Employee salaries vary across departments and locations.
+Analyst-related roles can be compared using average salary.
+Department size can be analyzed using employee counts.
+Female employee age patterns can be compared across locations.
+Employee, department, and location information can be combined using relational joins.
+Missing employee information can be identified and corrected using SQL.
 
-Purpose:
-- Ensure data accuracy, consistency, and relational integrity.
+🛠️ Tools Used
+MySQL
+MySQL Workbench
+GitHub
 
----
+💻 Skills Demonstrated
+SQL
+MySQL
+Relational Database Design
+Database Management
+DDL
+DML
+Data Analysis
+Data Filtering
+Data Cleaning
+Data Aggregation
+Data Grouping
+SQL Joins
+Data Integrity
+Primary & Foreign Keys
+Problem Solving
+Analytical Thinking
 
-# 🔑 Key Features
-
-- Relational Database Design
-- Table Creation
-- Schema Modification
-- Database Maintenance
-- Data Integrity
-- Primary & Foreign Keys
-- Constraint Implementation
-- Database Normalization
-
----
-
-# 💻 Skills Demonstrated
-
-- SQL
-- MySQL
-- Database Design
-- Relational Database Management
-- DDL Commands
-- Schema Design
-- Constraint Implementation
-- Database Normalization
-- Data Integrity
-- Problem Solving
-
----
-
-# 🛠️ Tools Used
-
-- MySQL
-- MySQL Workbench
-
----
-
-# 📂 Repository Structure
-
-```
+📂 Repository Structure
 Employee-Database-SQL/
+│
+├── Assignment-01-DDL-Constraints/
+│   └── Employee_DDL.sql
+│
+├── Assignment-02-DML-Queries/
+│   └── Employee_DML_Queries.sql
+│
+└── README.md
 
-│── Employee_Database.sql
-│── README.md
-```
+📈 Learning Progression
+Database Creation
+        ↓
+Table Design
+        ↓
+Constraints
+        ↓
+Schema Modification
+        ↓
+Data Insertion
+        ↓
+Data Retrieval
+        ↓
+Filtering & Sorting
+        ↓
+Aggregation
+        ↓
+GROUP BY & HAVING
+        ↓
+SQL JOINS
+        ↓
+Data Analysis
+📚 Learning Outcomes
 
----
+Through this project, I gained practical experience in:
 
-# 📚 Learning Outcomes
+Designing relational databases.
+Creating structured tables.
+Implementing database constraints.
+Establishing relationships using primary and foreign keys.
+Populating relational tables with data.
+Filtering and sorting records.
+Handling missing data using SQL.
+Performing aggregate calculations.
+Grouping data for analysis.
+Filtering grouped results using HAVING.
+Combining multiple tables using SQL joins.
+Applying SQL concepts to practical data analysis scenarios.
+🚀 Project Progression
 
-Through this project, I learned to:
+This project demonstrates my progression from basic database creation to analytical SQL:
 
-- Design relational databases from scratch.
-- Create normalized tables.
-- Apply SQL constraints effectively.
-- Modify database schemas using ALTER commands.
-- Maintain database structures using DDL operations.
-- Establish relationships using Primary and Foreign Keys.
-- Improve data integrity through constraints.
 
----
+1. DDL & Database Design
 
-# ✅ Conclusion
+Covered:
 
-This project provided hands-on experience in designing and managing a relational database using MySQL. It strengthened my understanding of Database Definition Language (DDL), table creation, schema modification, relational modeling, and constraint implementation. By building an Employee Database Management System, I gained practical knowledge of database design principles and developed a solid foundation in SQL for real-world data management applications.
+Database creation
+Table creation
+Schema modification
+Table management
+Primary Keys
+Foreign Keys
+Database constraints
 
----
+2. DML & SQL Analysis
 
-## 👩‍💻 Author
+Covered:
 
-**Maathangi**
+Data insertion
+Data updating
+DISTINCT
+Aliases
+WHERE
+ORDER BY
+LIMIT
+Aggregate Functions
+GROUP BY
+HAVING
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+
+This progression demonstrates how SQL can be used to create, manage, retrieve, transform, and analyze structured data.
+
+👩‍💻 Author
+
+Maathangi
 
 Aspiring Data Analyst
 
-📌 Skills: SQL • Excel • Power BI • Power Query • Looker Studio
+Skills
 
-🔗 GitHub: https://github.com/Maathangi1412
+SQL • Excel • Power BI • Power Query • Looker Studio
 
-🔗 LinkedIn: www.linkedin.com/in/maathangi-p-analyst
+Connect With Me
+
+🔗 GitHub:
+https://github.com/Maathangi1412
+
+🔗 LinkedIn:
+https://www.linkedin.com/in/maathangi-p-analyst
+
+⭐ Conclusion
+
+This project provided hands-on experience in building and analyzing a relational Employee Database using MySQL.
+
+Starting with DDL and database design, the project progressed into DML, data retrieval, filtering, sorting, aggregation, grouping, and SQL joins.
+
+The project strengthened my understanding of relational databases and demonstrated how SQL can be applied to data management, data quality, analysis, and data-driven decision-making.
+
+
+
